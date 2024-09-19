@@ -6,9 +6,20 @@ import { useEffect, useState } from "react"
 function App() {
   const [data,  setData] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   function handleToggleModal(){
     setShowModal(!showModal)
   }
+
+  useEffect(() => {
+    if (data) {
+      const timer = setTimeout(() => {
+        setLoading(false); 
+      }, 1000); 
+      return () => clearTimeout(timer);
+    }
+  }, [data]);
 
   useEffect(() => {
     async function getAPIData(){
@@ -41,7 +52,9 @@ function App() {
   }, []);
   return (
     <>
-      { data ? (<Main data={data} />):(
+      {!loading ? (
+        <Main data={data} />
+      ) : (
         <div className="loading-state">
           <i className="fa-solid fa-gear"></i>
         </div>
