@@ -63,7 +63,7 @@ function App() {
         <SideBar data={data} handleToggleModal={handleToggleModal}/>
       )}
       
-      { data && (
+      { !loading && (
         <Footer data = {data} handleToggleModal={handleToggleModal}/>
       )}
       
